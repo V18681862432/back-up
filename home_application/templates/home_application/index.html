@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bk-icon-2.0/iconfont.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css-pro/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/jstree-3.1.1/dist/themes/default/style.min.css" rel="stylesheet"/>
+    <style>
+        html,
+        body {
+            background: #fafafa;
+            overflow: hidden;
+        }
+
+        .bk-layout {
+            min-height: 500px;
+        }
+
+        .page-content {
+            padding: 25px;
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .bk-sidebar {
+            width: 252px;
+            border-right: solid 1px #e6e6e6;
+            background: #ffffff;
+            color: #2f2e2e;
+        }
+
+        .bk-sidebar li > a {
+            display: inline-block;
+        }
+
+        .bk-sidebar .open > a {
+            background: #ffffff;
+        }
+
+        .bk-table.has-table-bordered > thead > tr > th {
+            border-top: solid 1px #e6e6e6 !important;
+        }
+
+        .bk-layout {
+            min-width: 1200px;
+        }
+
+        .bk-sidebar li>a {
+            padding: 0;
+        }
+
+        #plugin11_demo2 {
+            padding-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="nav king-horizontal-nav10" id="horizontal_nav_demo10">
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand">
+            <img src="https://magicbox.bk.tencent.com/static_api/v3/bk/images/logo.png" class="logo">
+        </a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="{{ SITE_URL }}">备份操作</a></li>
+        <li><a href="{{ SITE_URL }}history/">备份记录</a></li>
+        <li class="navslip" id="navslip" style="width: 84px; left: 0px;"></li>
+    </ul>
+    <div class="navbar-header pull-right">
+        <ul class="nav">
+            <li class="user-info">
+                <a href="">admin</a>
+            </li>
+        </ul>
+    </div>
+</div>
+    <div class="bk-layout bk-layout-has-sidebar" style="height:calc(100% - 60px)">
+        <div class="bk-sidebar">
+            <div class="nav-list mt25">
+                <ul>
+                    <li class="pureLink pl10">
+                        选择业务
+                    </li>
+                    <li>
+                        <div class="bk-form-content" style="padding: 10px;">
+                            <select name="" id="bk_biz_select" class="bk-form-select" style="width:100%;" placeholder="请选择">
+                                <option value="" >请选择</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="pureLink pl10">
+                        选择拓扑
+                    </li>
+
+                </ul>
+            </div>
+            <div id="plugin11_demo2">
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="bk-panel mb20">
+                <div class="bk-panel-body p25">
+                    <form class="bk-form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bk-form-item mb20">
+                                    <label class="bk-label pr15" style="width:80px;">主机IP</label>
+                                    <div class="bk-form-content" style="margin-left:80px;">
+                                        <textarea class="bk-form-textarea" id="form-field" placeholder="多个IP换行分割"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="bk-form-item mb20">
+                                    <label class="bk-label pr15" style="width:80px;">目录</label>
+                                    <div class="bk-form-content" style="margin-left:80px;">
+                                        <input type="text" class="bk-form-input" id="module_name" value="/data/logs" placeholder="请输入目录的绝对路径，如'/data/logs'" style="width:100%;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="bk-form-item mb20">
+                                    <label class="bk-label pr15" style="width:80px;">文件名</label>
+                                    <div class="bk-form-content" style="margin-left:80px;">
+                                        <input type="text" class="bk-form-input" id="pattern"  value="log" placeholder="请输入文件名后缀，如'txt'" style="width:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bk-form-item">
+                                    <label class="bk-label pr15" style="width:80px;"></label>
+                                    <div class="bk-form-content-x tl">
+                                        <button id="bk-button" class="bk-button bk-success" type="button">立即搜索</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bk-panel">
+                <div class="bk-panel-header p25" role="tab">
+                    <table class="bk-table has-table-bordered has-table-hover" id="bk_table">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;">序号</th>
+                                <th style="width:20%;">IP</th>
+                                <th>文件列表</th>
+                                <th>文件数量</th>
+                                <th>文件总大小</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bk_table_body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery js  -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/jquery/jquery.json-2.3.min.js"></script>
+    <!-- 处理jquery兼容问题，jQuery Migrate（迁移）插件包含了1.6.4以来存在但1.9已不支持所有API -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <!-- bootstrap js  -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- jquery ui js-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+    <!-- 平台 js  -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+
+    <!-- 这个是全局配置，如果需要在js中使用app_code和site_url,则这个javascript片段一定要保留 -->
+    <script type="text/javascript">
+        var site_url = "{{SITE_URL}}";			// app的url前缀,在ajax调用的时候，应该加上该前缀
+        var static_url = "{{STATIC_URL}}";
+    </script>
+
+    <!--统计js  勿删-->
+    <script src="https://magicbox.bk.tencent.com/static_api/analysis.js?v=${ STATIC_VERSION }"></script>
+    <script src="{{STATIC_URL}}js/csrftoken.js?v={{ STATIC_VERSION }}"></script>
+    <script src="{{STATIC_URL}}js/settings.js?v={{ STATIC_VERSION }}"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/jstree-3.1.1/dist/jstree.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript"></script>
+
+    <script>
+
+		(function () {
+            // javascript代码中直接导入数据
+            // https://www.jstree.com/docs/json/
+            $.ajax({
+                url: site_url + "api/search_business/",
+                type: "get",
+                success:function (data) {
+                        $.each(data['results'], function (index, item) {
+                            $("#bk_biz_select").append(
+                                "<option value=" + item.id + ">" + item.name + "</option>"
+                            );
+                        });
+                    },
+                });
+
+            $("#bk_biz_select").change(function () {
+                var bk_biz_id = $("#bk_biz_select").val();
+                $.ajax({
+                    url: site_url + "api/search_biz_inst_topo/",
+                    type: "post",
+                    data: {
+                        "bk_biz_id": bk_biz_id
+                    },
+                    success:function (data) {
+                        //将查到的数据赋给拓扑树，并且动态刷新
+                        $('#plugin11_demo2').jstree(true).settings.core.data = JSON.parse(data['results']);
+                        $('#plugin11_demo2').jstree(true).refresh();
+                    },
+                });
+            });
+
+            function get_host(bk_inst_id) {
+                var bk_biz_id = $("#bk_biz_select").val();
+                $.ajax({
+                    url: site_url + "api/search_host/",
+                    type: "post",
+                    data: {
+                        "bk_biz_id": bk_biz_id,
+                        "bk_inst_id": bk_inst_id
+                    },
+                    success:function (data) {
+                        // 将字符串转为json对象
+                        var arr = data['results'];
+                        var jsonArr = [];
+                        for (let i = 0; i < arr.length; i++) {
+                            jsonArr[i] = arr[i].ip + "\n";
+                        }
+                        //进行html的追加
+                        $("#form-field").empty();
+                        $("#form-field").html(jsonArr)
+                    }
+                })
+            }
+
+            $('#plugin11_demo2').jstree({
+                'core': {
+                    "themes": {
+                        "icons": false,
+                        "variant": "large"//设置节点间距离
+                    },
+                    'animation': false,//取消树列表的显示隐藏运动效果
+                    'data': [
+                    ],
+                    "multiple": false//是否支持多选
+                },
+                "checkbox": {
+                    "keep_selected_style": false//选中后当前节点是否添加样式
+                },
+                "plugins": ["checkbox"]//是否添加复选框
+            }).on("changed.jstree", function (e, data) {
+                if (data.selected.length) {
+                    var bk_inst_id = data.instance.get_node(data.selected[0]).id;
+                    get_host(bk_inst_id);
+                }
+            });
+        })();
+        function fast_execute_script() {
+            var bk_biz_id = $("#bk_biz_select").val();
+            // ip 列表
+            var form_field = $("#form-field").val();
+            // 目录名称
+            var module_name = $("#module_name").val();
+            // 文件格式，用*匹配
+            var pattern = "*" +$("#pattern").val();
+            $.ajax({
+                url: site_url + "api/fast_execute_script/",
+                type: "post",
+                data: {
+                    "bk_biz_id": bk_biz_id,
+                    "module_name": module_name,
+                    "pattern": pattern,
+                    "ip_list": form_field,
+                },
+                success: function (data) {
+                    $("#bk_table_body").empty(); //清除上一步结果
+                    var obj = data['results'];
+                    if (obj.length === 0) alert("Not found file! Please try again");
+                    else {
+
+                        for (let i = 0; i <obj.length; i++) {
+                            $("#bk_table_body").append(
+                                "<tr>"                          +
+                                "<td>"+(i+1)+"</td>"            +
+                                "<td>"+obj[i].ip+"</td>"        +
+                                "<td>"+obj[i].file_list+"</td>" +
+                                "<td>"+obj[i].number+"</td>"     +
+                                "<td>"+obj[i].size+"</td>"      +
+                                                                    //这里将相关参数传递到后端直接传给备份页面
+                                "<td><a href=\"javascript:void(0)\" " +
+                                "onclick='execute_job(" +
+                                " \""+obj[i].ip+"\"," +
+                                " \""+obj[i].file_list+"\"," +
+                                " \""+obj[i].number+"\"," +
+                                " \""+obj[i].size+"\")' class=\"king-btn king-btn-mini\">立即备份</a></td>" +
+                                "</tr>"
+                            )
+                        }
+                    }
+
+                },
+                error: function () {
+                    alert("error")
+                }
+            })
+        }
+
+
+        $("#bk-button").click(function () {
+            fast_execute_script();
+        });
+
+        function execute_job(ip, file_list, count, size) {
+            var bk_biz_id = $("#bk_biz_select").val();
+            $.ajax({
+                url: site_url + "api/execute_job/",
+                type: "post",
+                data: {
+                    "bk_biz_id": bk_biz_id,
+                    "ip": ip,
+                    "file_list": file_list,
+                    "count": count,
+                    "size": size
+                },
+                success: function (data) {
+                    alert(data['results'].toString())
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
